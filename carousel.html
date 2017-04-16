@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片轮换</title>
+    <style type="text/css">
+        *{
+            background:transparent;
+            border:0;
+            margin:0;
+            padding:0;
+        }
+
+        ul{
+            list-style-type: none;
+        }
+
+        body{
+            background-color:#dfdfdf;
+        }
+
+        .maintype_left{
+            margin:10px 0 0 11px;
+            width:545px;
+            height:260px;
+        }
+
+        .scroll_mid{
+            background-color:#f2f2f3;
+            border-left:solid 1px #d6d5d6;
+            border-right:solid 1px #d6d5d6;
+            width:535px;
+            height:250px;
+            padding:5px 5px 5px 5px;
+            float:left;
+            position:relative;
+        }
+
+        #pic{
+            float:right;
+            width:535px;
+            height:250px;
+        }
+
+        #scroll_number{
+            clear:both;
+            padding-right:10px;
+            display:inline;
+        }
+
+        #scroll_number li{
+            width:20px;
+            line-height:16px;
+            text-align:center;
+            border:solid 1px #999;
+            margin-top:5px;
+            font-size:12px;
+            float:left;
+        }
+
+        .scroll_number_out{
+            background-color:#f2f2f3;
+        }
+
+        .scroll_number_over{
+            background-color:#F96;
+            color:#FFF;
+        }
+
+        #lefts{
+            width:120px;
+            height:100%;
+            background:#eee url(img/images/left.jpg) no-repeat left center;
+            position:absolute;
+            left:0;
+            top:0;
+            opacity:0.8;
+            display:none;
+        }
+        #rights{
+            width:120px;
+            height:100%;
+            background:#eee url(img/images/right.jpg) no-repeat right center;
+            position:absolute;
+            right:0;
+            top:0;
+            display:none;
+            opacity:0.8;
+        }
+    </style>
+    <script type="text/javascript" src="../../封装函数库.js"></script>
+</head>
+<body>jquery-1.9.1.js
+<div class="maintype_left">
+    <div class="scroll_mid">
+        <img src="img/images/pic_1.jpg" id="pic" />
+        <ul id="scroll_number">
+            <li onMouseOver="show(1)" onMouseOut="start()">1</li>
+            <li onMouseOver="show(2)" onMouseOut="start()">2</li>
+            <li onMouseOver="show(3)" onMouseOut="start()">3</li>
+            <li onMouseOver="show(4)" onMouseOut="start()">4</li>
+            <li onMouseOver="show(5)" onMouseOut="start()">5</li>
+            <li onMouseOver="show(6)" onMouseOut="start()">6</li>
+        </ul>
+        <div id="lefts"></div>
+        <div id="rights"></div>
+    </div>
+    <script>
+        var index=1;//图片的索引
+        var time;//定时器
+
+        time=window.setInterval("show()",1000);
+        function show(id) {
+            if(Number(id)){
+                //鼠标移入  消除定时器
+                clearInterval(time);
+            }else {
+                index=index%6+1;
+            }
+            //设置图片
+            document.getElementById("pic").setAttribute("src","img/images/pic_"+index+".jpg");
+            var lis=document.getElementsByTagName("li");
+            for (var i=0;i<lis.length;i++){
+                lis[i].setAttribute("class","scroll_number_out");
+                if(index==i+1){
+                    lis[i].setAttribute("class","scroll_number_over");
+                }
+            }
+        }
+        function start() {
+            time=window.setInterval("show()",1000);
+        }
+    </script>
+
+</div>
+
+
+</body>
+</html>
